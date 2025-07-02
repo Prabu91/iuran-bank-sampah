@@ -50,6 +50,6 @@ class User extends Authenticatable
 
     public function penabung()
     {
-        return $this->hasOne(Penabung::class);
+        return $this->hasOne(Unit::class);
     }
 }

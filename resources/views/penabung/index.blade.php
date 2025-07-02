@@ -13,6 +13,7 @@
                     <th>Nama PIC</th>
                     <th>No HP</th>
                     <th>Alamat</th>
+                    <th>Saldo</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -23,6 +24,9 @@
                     <td>{{ $p->pic_name }}</td>
                     <td>{{ $p->phone }}</td>
                     <td>{{ $p->address }}</td>
+                    <td>
+                        Rp{{ number_format($p->wallet->balance ?? 0, 0, ',', '.') }}
+                    </td>
                     <td class="space-x-2">
                         <a href="{{ route('penabung.edit', $p->id) }}" class="text-blue-600">Edit</a>
                         <form action="{{ route('penabung.destroy', $p->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Yakin hapus?')">

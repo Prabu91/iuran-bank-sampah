@@ -18,6 +18,11 @@ class Unit extends Model
         'phone',
     ];
 
+    public function wallet()
+    {
+        return $this->hasOne(UnitWallet::class);
+    }
+    
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Setoran;
 use App\Models\Unit;
+use App\Models\UnitWallet;
 use Illuminate\Http\Request;
 
 class SetoranController extends Controller
@@ -39,11 +40,27 @@ class SetoranController extends Controller
             'tanggal' => 'required|date',
             'jumlah_kg' => 'required|numeric|min:0.1',
             'nominal' => 'required|numeric|min:0',
-            'keterangan' => 'required|string',
+            'keterangan' => 'nullable|string',
         ]);
 
+        Setoran::create([
+            'unit_id'     => $request->unit_id,
+            'nama_penyetor'     => $request->nama_penyetor,
+            'type'     => $request->type,
+            'sampah'     => $request->sampah,
+            'tanggal'     => $request->tanggal,
+            'jumlah_kg'     => $request->jumlah_kg,
+            'nominal'     => $request->nominal,
+            'keterangan'  => $request->keterangan,
+        ]);
 
-        Setoran::create($request->all());
+        $wallet = UnitWallet::firstOrCreate(
+            ['unit_id' => $request->unit_id],
+            ['balance' => 0]
+        );
+
+        $wallet->balance += $request->nominal;
+        $wallet->save();
 
         return redirect()->route('setoran.index')->with('success', 'Setoran berhasil ditambahkan.');
     }
@@ -53,7 +70,7 @@ class SetoranController extends Controller
      */
     public function show(Setoran $setoran)
     {
-        //
+        
     }
 
     /**
@@ -61,7 +78,8 @@ class SetoranController extends Controller
      */
     public function edit(Setoran $setoran)
     {
-        //
+        $penabung = Unit::all();
+        return view('setoran.edit', compact('setoran', 'penabung'));
     }
 
     /**
@@ -69,7 +87,20 @@ class SetoranController extends Controller
      */
     public function update(Request $request, Setoran $setoran)
     {
-        //
+        $request->validate([
+            'unit_id' => 'required|exists:units,id',
+            'nama_penyetor' => 'required|string',
+            'type' => 'required|string',
+            'sampah' => 'required|string',
+            'tanggal' => 'required|date',
+            'jumlah_kg' => 'required|numeric|min:0.1',
+            'nominal' => 'required|numeric|min:0',
+            'keterangan' => 'nullable|string',
+        ]);
+
+        $setoran->update($request->all());
+
+        return redirect()->route('setoran.index')->with('success', 'Setoran berhasil diperbarui.');
     }
 
     /**
@@ -77,6 +108,8 @@ class SetoranController extends Controller
      */
     public function destroy(Setoran $setoran)
     {
-        //
+        $setoran->delete();
+
+        return redirect()->route('setoran.index')->with('success', 'Setoran berhasil dihapus.');
     }
 }

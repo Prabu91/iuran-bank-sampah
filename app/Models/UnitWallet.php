@@ -5,28 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Donasi extends Model
+class UnitWallet extends Model
 {
     use HasFactory;
 
+    protected $table = 'unit_wallets';
+
     protected $fillable = [
-        'peserta_id',
         'unit_id',
-        'jumlah_donasi',
-        'bukti_tf',
-        'tanggal',
-        'status',
-        'keterangan',
+        'balance',
     ];
 
     public function unit()
     {
         return $this->belongsTo(Unit::class);
     }
-
-    public function peserta()
-    {
-        return $this->belongsTo(Peserta::class);
-    }
-
 }

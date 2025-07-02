@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DonasiController;
+use App\Http\Controllers\PesertaController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
@@ -26,12 +27,17 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('role:admin')->group(function () {
         Route::resource('users', UserController::class);
+        Route::resource('peserta', PesertaController::class)->parameters([
+            'peserta' => 'peserta'
+        ]);
     });
     Route::middleware('role:admin,petugas')->group(function () {
         Route::resource('penabung', UnitController::class);
         Route::resource('setoran', SetoranController::class);
         Route::resource('tabungan', TabunganController::class);
         Route::resource('donasi', DonasiController::class);
+        Route::put('/donasi/{id}/upload-bukti', [DonasiController::class, 'uploadBukti'])->name('donasi.upload_bukti');
+        Route::put('/donasi/{id}/approve', [DonasiController::class, 'approve'])->name('donasi.approve');
     });
 });
 

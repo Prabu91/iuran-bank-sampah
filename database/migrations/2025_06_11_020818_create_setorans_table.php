@@ -19,8 +19,8 @@ return new class extends Migration
             $table->text('sampah');
             $table->date('tanggal');
             $table->decimal('jumlah_kg', 8, 2);
-            $table->decimal('nominal', 12, 2);
-            $table->text('keterangan');
+            $table->integer('nominal');
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

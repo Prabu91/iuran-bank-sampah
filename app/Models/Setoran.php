@@ -9,6 +9,11 @@ class Setoran extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'tanggal' => 'date',
+    ];
+
+
     protected $fillable = [
         'unit_id',
         'nama_penyetor',

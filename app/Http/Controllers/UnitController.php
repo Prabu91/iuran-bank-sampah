@@ -13,7 +13,7 @@ class UnitController extends Controller
      */
     public function index()
     {
-        $penabung = Unit::all();
+        $penabung = Unit::with('wallet')->get();
         return view('penabung.index', compact('penabung'));
     }
 

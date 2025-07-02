@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('donasis', function (Blueprint $table) {
+        Schema::create('unit_wallets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('peserta_id')->constrained()->onDelete('cascade');
             $table->foreignId('unit_id')->constrained()->onDelete('cascade');
-            $table->integer('jumlah_donasi');
-            $table->string('bukti_tf')->nullable();
-            $table->date('tanggal');
-            $table->enum('status', ['menunggu bukti', 'menunggu approval', 'disetujui']);
-            $table->text('keterangan')->nullable();
+            $table->integer('balance')->default(0);
             $table->timestamps();
         });
     }
@@ -29,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('donasis');
+        Schema::dropIfExists('unit_wallets');
     }
 };

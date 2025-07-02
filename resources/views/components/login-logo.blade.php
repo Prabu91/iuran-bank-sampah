@@ -1,0 +1,1 @@
+<img src="{{ asset('images/logo-login.png') }}" alt="Logo Bandara" class="w-96 mb-4" />

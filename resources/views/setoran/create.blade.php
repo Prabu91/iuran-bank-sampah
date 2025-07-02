@@ -53,7 +53,7 @@
             
             <div>
                 <label class="block">Keterangan:</label>
-                <input type="text" name="keterangan" required class="w-full p-2 border rounded" />
+                <input type="text" name="keterangan" class="w-full p-2 border rounded" />
             </div>
 
             <button class="bg-green-600 text-white px-4 py-2 rounded">Simpan</button>
