@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('unit_id')->constrained()->onDelete('cascade');
             $table->string('nama_penyetor');
-            $table->enum('type', ['nabung', 'donasi']);
             $table->text('sampah');
             $table->date('tanggal');
             $table->decimal('jumlah_kg', 8, 2);
             $table->integer('nominal');
             $table->text('keterangan')->nullable();
+            $table->string('bukti_setor_path');
             $table->timestamps();
         });
     }

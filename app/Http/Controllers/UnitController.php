@@ -14,7 +14,7 @@ class UnitController extends Controller
     public function index()
     {
         $penabung = Unit::with('wallet')->get();
-        return view('penabung.index', compact('penabung'));
+        return view('unitbsb.index', compact('penabung'));
     }
 
     /**
@@ -22,7 +22,7 @@ class UnitController extends Controller
      */
     public function create()
     {
-        return view('penabung.create');
+        return view('unitbsb.create');
     }
 
     /**
@@ -44,7 +44,7 @@ class UnitController extends Controller
             'phone' => $request->phone,
         ]);
 
-        return redirect()->route('penabung.index')->with('success', 'Data unit berhasil ditambahkan.');
+        return redirect()->route('unitbsb.index')->with('success', 'Data unit berhasil ditambahkan.');
     }
 
     /**
@@ -52,21 +52,22 @@ class UnitController extends Controller
      */
     public function show(Unit $penabung)
     {
-        return view('penabung.show', compact('penabung'));
+        return view('unitbsb.show', compact('penabung'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Unit $penabung)
+    public function edit(Unit $unitbsb)
     {
-        return view('penabung.edit', compact('penabung'));
+        // dd($unitbsb);
+        return view('unitbsb.edit', compact('unitbsb'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Unit $penabung)
+    public function update(Request $request, Unit $unitbsb)
     {
         $request->validate([
             'unit_name' => 'required|string|max:100',
@@ -75,17 +76,17 @@ class UnitController extends Controller
             'phone' => 'required|string|max:20',
         ]);
 
-        $penabung->update($request->all());
+        $unitbsb->update($request->all());
 
-        return redirect()->route('penabung.index')->with('success', 'Data unit berhasil diperbarui.');
+        return redirect()->route('unitbsb.index')->with('success', 'Data unit berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Unit $penabung)
+    public function destroy(Unit $unitbsb)
     {
-        $penabung->delete();
+        $unitbsb->delete();
         return back()->with('success', 'Data unit berhasil dihapus.');
     }
 }

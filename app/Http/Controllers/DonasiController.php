@@ -8,6 +8,7 @@ use App\Models\Peserta;
 use App\Models\Unit;
 use App\Models\UnitWallet;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class DonasiController extends Controller
 {
@@ -39,7 +40,6 @@ class DonasiController extends Controller
             'peserta_id' => 'required|exists:pesertas,id',
             'unit_id' => 'required|exists:units,id',
             'jumlah_donasi' => 'required|numeric|min:1',
-            'tanggal' => 'required|date',
             'keterangan' => 'nullable',
         ]);
 
@@ -51,13 +51,16 @@ class DonasiController extends Controller
         }
 
         $donasi = new Donasi();
-        $donasi->peserta_id     = $request->peserta_id;
-        $donasi->unit_id          = $request->unit_id;
-        $donasi->jumlah_donasi    = $request->jumlah_donasi;
-        $donasi->tanggal          = $request->tanggal;
-        $donasi->keterangan       = $request->keterangan;
-        $donasi->status           = 'menunggu bukti';
-        $donasi->bukti_tf         = null;
+        $donasi->peserta_id = $request->peserta_id;
+        $donasi->unit_id = $request->unit_id;
+        $donasi->jumlah_donasi = $request->jumlah_donasi;
+        
+        // Menggunakan tanggal saat ini
+        $donasi->tanggal = Carbon::now();
+
+        $donasi->keterangan = $request->keterangan;
+        $donasi->status = 'menunggu bukti';
+        $donasi->bukti_tf = null;
         $donasi->save();
 
         return redirect()->route('donasi.index')->with('success', 'Donasi berhasil disimpan.');
@@ -120,7 +123,7 @@ class DonasiController extends Controller
      */
     public function show(Donasi $donasi)
     {
-        //
+        return view('donasi.show', compact('donasi'));
     }
 
     /**

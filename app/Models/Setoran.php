@@ -17,7 +17,7 @@ class Setoran extends Model
     protected $fillable = [
         'unit_id',
         'nama_penyetor',
-        'type',
+        'bukti_setor_path',
         'sampah',
         'tanggal',
         'jumlah_kg',

@@ -1,1 +1,1 @@
-<img src="{{ asset('images/logo-side.png') }}" alt="Logo Bandara" class="w-32" />
+<img src="{{ asset('images/logo-side.png') }}" alt="Logo Bandara" class="w-46" />

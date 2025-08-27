@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
         ]);
     });
     Route::middleware('role:admin,petugas')->group(function () {
-        Route::resource('penabung', UnitController::class);
+        Route::resource('unitbsb', UnitController::class);
         Route::resource('setoran', SetoranController::class);
         Route::resource('tabungan', TabunganController::class);
         Route::resource('donasi', DonasiController::class);
